@@ -1,0 +1,29 @@
+{
+  "name": "",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "jade": "~0.35.0",
+    "express": "~3.4.0",
+    "mongoskin": "~0.6.0",
+    "watch": "~0.8.0",
+    "objectid": "~3.1.0",
+    "express-validator": "~0.8.0",
+    "mong.socket.io": "~0.9.0",
+    "connect": "~2.9.0",
+    "buffer-crc32": "~0.2.1",
+    "socket.io": "~0.9.16",
+    "ben": "0.0.0",
+    "browserify": "~2.29.1",
+    "bower-json": "~0.4.0",
+    "node-minify": "~0.8.1",
+    "uglify-js": "~2.4.0"
+  }
+}

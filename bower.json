@@ -1,0 +1,10 @@
+{
+  "name": "nite",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "jquery-pjax": "~1.7.3",
+    "bootstrap-css": "~2.3.2",
+    "Keypress": "https://github.com/dmauro/Keypress.git"
+  }
+}

@@ -1,0 +1,22 @@
+{
+	"db": {
+		"host": "127.0.0.1",
+		"port": 27017,
+		"username": "",
+		"password": "",
+		"database":  {
+				"general": ""
+			}
+	},
+	"cookie": {
+		"secret": "",
+		"key": "session"
+	},
+	"ports": {
+		"web": 3000
+	},
+	"environment": "development",
+	"launch_options": {
+		"workers": 2
+	}
+}

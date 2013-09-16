@@ -1,0 +1,24 @@
+.navbar.navbar-fixed-top.navbar-inverse
+        .navbar-inner
+          .container
+            button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            .nav-collapse.collapse
+              ul.nav
+                - each val, key in paths
+                  -if (key == "chat")
+                    -if (current_page == key)
+                      li.dropdown.active
+                        a(href='/#{key}', id="chat_trigger") #{val}
+                    -else
+                      li.dropdown
+                        a(href='/#{key}', id="chat_trigger") #{val}
+                    -continue
+                  - if (current_page == key)
+                    li.active
+                      a(href='/#{key}') #{val}
+                  - else            
+                    li
+                      a(href='/#{key}') #{val}
