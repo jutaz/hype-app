@@ -20,10 +20,10 @@
     "connect": "~2.9.0",
     "buffer-crc32": "~0.2.1",
     "socket.io": "~0.9.16",
-    "ben": "0.0.0",
     "browserify": "~2.29.1",
     "bower-json": "~0.4.0",
     "node-minify": "~0.8.1",
-    "uglify-js": "~2.4.0"
+    "uglify-js": "~2.4.0",
+    "ben": "0.0.0"
   }
 }
