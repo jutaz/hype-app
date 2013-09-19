@@ -10,6 +10,16 @@ var ping = require('./lib/ping');
 var app = express();
 var routes = require('./routes/main');
 var middleware = require("./lib/middleware");
+var https = require('https');
+var fs = require('fs');
+if (conf.ssl && conf.ssl.key && conf.ssl.cert && conf.ports.ssl) {
+	var httpsServer = https.createServer({
+		key: fs.readFileSync(conf.ssl.key, 'utf8'),
+		cert: fs.readFileSync(conf.ssl.cert, 'utf8')
+	}, app);
+	httpsServer.listen(conf.ports.ssl);
+
+}
 var io = require('socket.io').listen(app.listen(conf.ports.web), { log: conf.development });
 
 //setting up some custom middleware
