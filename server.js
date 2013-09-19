@@ -2,6 +2,11 @@ global.conf = require('./conf.json');
 global.conf.development = (conf.environment == "development");
 global.error = require("./lib/errorHandler");
 var logHooker = require('./lib/logHooker');
+var RedisStore = require('socket.io/lib/stores/redis');
+var redis  = require('socket.io/node_modules/redis');
+var pub    = redis.createClient();
+var sub    = redis.createClient();
+var client = redis.createClient();
 var cluster = require('cluster');
 var express = require('express');
 var expressValidator = require('express-validator');
@@ -12,7 +17,8 @@ var routes = require('./routes/main');
 var middleware = require("./lib/middleware");
 var https = require('https');
 var fs = require('fs');
-if (conf.ssl && conf.ssl.key && conf.ssl.cert && conf.ports.ssl) {
+
+if (process.env['ssl'] == "true") {
 	var httpsServer = https.createServer({
 		key: fs.readFileSync(conf.ssl.key, 'utf8'),
 		cert: fs.readFileSync(conf.ssl.cert, 'utf8')
@@ -28,7 +34,7 @@ session = middleware.session(express);
 conf.cookie.store = new session();
 
 app.disable('x-powered-by');
-app.use(middleware.logger);
+app.use((conf.development) ? middleware.logger : express.logger('dev'));
 app.use(express.static(__dirname + '/public'));
 app.use(middleware.pjax);
 app.use(express.favicon());
@@ -65,3 +71,17 @@ app.get('/staff/mission-control/deactivate', middleware.auth.staff, routes.staff
 //error pages. Those should be last routes. 
 app.all('*', routes.error_404);
 app.use(middleware.serverError);
+
+io.set('store', new RedisStore({
+	redisPub : pub,
+	redisSub : sub,
+	redisClient : client
+}));
+io.set('authorization', middleware.auth.socket);
+
+io.on('connection', function(socket) {
+	socket.emit("beep");
+	socket.on("boop", function(data) {
+		console.log(data);
+	})
+});

@@ -19,8 +19,7 @@ numberofWorkers = (conf.launch_options.workers) ? conf.launch_options.workers : 
 
 cluster.setupMaster({
 	exec : "server.js",
-	silent : true,
-	args : ["--ssl", use_ssl()]
+	silent : true
 });
 
 bower('./bower.json', function(err, jsonData) {
@@ -44,7 +43,7 @@ function use_ssl() {
 		return false;
 	}
 	if(numberofWorkers > 1) {
-		if((sslRuns%2) == 0) {
+		if(sslRuns % 2 == 0) {
 			return true;
 		}
 	}
@@ -52,7 +51,7 @@ function use_ssl() {
 }
 
 for (var i = 0; i < numberofWorkers; i++) {
-	cluster.fork();
+	cluster.fork({"ssl": use_ssl()});
 }
 
 for (var i in cluster.workers){
@@ -67,7 +66,7 @@ cluster.on('exit', function(worker, code, signal) {
 	} else {
 		console.log('worker ' + worker.process.pid + ' died');
 		add_to_dead_list(worker);
-		cluster.fork();
+		cluster.fork({"ssl": use_ssl()});
 	}
 
 });
@@ -112,7 +111,7 @@ function restart_workers(callback) {
 	for(var i in cluster.workers) {
 		cluster.workers[i].disconnect();
 		cluster.workers[i].destroy();
-		new_worker = cluster.fork()
+		new_worker = cluster.fork({"ssl": use_ssl()})
 		new_worker.process.stdout.on('data', outputData);
 		new_worker.process.stderr.on('data', outputData);
 		new_worker.process.on('error', clusterError);
@@ -152,6 +151,7 @@ function add_to_dead_list(worker) {
 
 function compile_client_js(scripts) {
 	var alljs = [];
+	var allJsSrc = [];
 	var b = browserify();
 	for (var i in scripts) {
 		tmp = JSON.parse(fs.readFileSync(scripts[i]+path.sep+"bower.json"));
@@ -166,17 +166,13 @@ function compile_client_js(scripts) {
 		}
 	}
 	alljs.push(path.normalize(__dirname+"/public/js/scripts.js"));
-	for (var i in alljs) {
-		b.add(alljs[i]);
-	}
-	b.bundle({}, function(err, src) {
-		if(err) {
-			console.log(err);
-			process.exit(1);
-		}
-		var result = UglifyJS.minify(src, {fromString: true});
-		fs.writeFileSync(path.normalize(__dirname+"/public/js/bundle.js"), result.code);
+	var result = UglifyJS.minify(alljs, {
+		outSourceMap: true,
+		sourceRoot: "//localhost/js/",
+		outSourceMap: path.normalize(__dirname+"/public/js/bundle.js.map"),
+
 	});
+	fs.writeFileSync(path.normalize(__dirname+"/public/js/bundle.js"), result.code+"//@ sourceMappingURL=/js/bundle.js.map");
 }
 
 setInterval(count_dead, 5000);
