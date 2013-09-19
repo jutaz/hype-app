@@ -1,5 +1,4 @@
 var userStore = {};
-var states = require("../states.json");
 
 window.onerror = function (msg, url, line) {
 	$.post("/log/error", { "msg" : msg, "url": url, "line": line, "request_id": $("meta[name='request-id']")[0].content});
