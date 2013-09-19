@@ -18,9 +18,10 @@ if (conf.ssl && conf.ssl.key && conf.ssl.cert && conf.ports.ssl) {
 		cert: fs.readFileSync(conf.ssl.cert, 'utf8')
 	}, app);
 	httpsServer.listen(conf.ports.ssl);
-
+	var io = require('socket.io').listen(httpsServer.listen(conf.ports.ssl), { log: conf.development });
+} else {
+	var io = require('socket.io').listen(app.listen(conf.ports.web), { log: conf.development });
 }
-var io = require('socket.io').listen(app.listen(conf.ports.web), { log: conf.development });
 
 //setting up some custom middleware
 session = middleware.session(express);

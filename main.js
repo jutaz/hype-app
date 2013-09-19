@@ -11,7 +11,7 @@ var compressor = require('node-minify');
 var UglifyJS = require("uglify-js");
 var bowerrc = JSON.parse(fs.readFileSync('./.bowerrc'));
 conf.development = (conf.environment == "development");
-
+var sslRuns = 0;
 var packages = [];
 var dead_list = [];
 
@@ -19,7 +19,8 @@ numberofWorkers = (conf.launch_options.workers) ? conf.launch_options.workers : 
 
 cluster.setupMaster({
 	exec : "server.js",
-	silent : true
+	silent : true,
+	args : ["--ssl", use_ssl()]
 });
 
 bower('./bower.json', function(err, jsonData) {
@@ -36,6 +37,19 @@ process.on('exit', function() {
 	}
 	console.log('Exiting......');
 });
+
+function use_ssl() {
+	sslRuns++;
+	if(!conf.ssl || !conf.ssl.key || !conf.ssl.cert || !conf.ports.ssl) {
+		return false;
+	}
+	if(numberofWorkers > 1) {
+		if((sslRuns%2) == 0) {
+			return true;
+		}
+	}
+	return false;
+}
 
 for (var i = 0; i < numberofWorkers; i++) {
 	cluster.fork();
