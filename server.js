@@ -78,10 +78,3 @@ io.set('store', new RedisStore({
 	redisClient : client
 }));
 io.set('authorization', middleware.auth.socket);
-
-io.on('connection', function(socket) {
-	socket.emit("beep");
-	socket.on("boop", function(data) {
-		console.log(data);
-	})
-});

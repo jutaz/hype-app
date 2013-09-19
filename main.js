@@ -170,7 +170,6 @@ function compile_client_js(scripts) {
 		outSourceMap: true,
 		sourceRoot: "//localhost/js/",
 		outSourceMap: path.normalize(__dirname+"/public/js/bundle.js.map"),
-
 	});
 	fs.writeFileSync(path.normalize(__dirname+"/public/js/bundle.js"), result.code+"//@ sourceMappingURL=/js/bundle.js.map");
 }
