@@ -16,7 +16,6 @@
     "watch": "~0.8.0",
     "objectid": "~3.1.0",
     "express-validator": "~0.8.0",
-    "mong.socket.io": "~0.9.0",
     "connect": "~2.9.0",
     "buffer-crc32": "~0.2.1",
     "socket.io": "~0.9.16",
@@ -24,7 +23,6 @@
     "bower-json": "~0.4.0",
     "node-minify": "~0.8.1",
     "uglify-js": "~2.4.0",
-    "ben": "0.0.0",
     "optimist": "~0.6.0"
   }
 }
