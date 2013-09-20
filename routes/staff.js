@@ -18,7 +18,7 @@ staff.mission_control_deactivate = function(req, res) {
 }
 
 staff.bar = function(req, res) {
-	res.render('staff/bar', {layout: false});
+	res.render('staff/bar');
 }
 
 module.exports = staff;
