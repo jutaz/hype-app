@@ -66,6 +66,7 @@ app.post('/log/error', routes.log_error);
 app.get('/staff', middleware.auth.staff, routes.staff.main);
 app.get('/staff/mission-control/activate', middleware.auth.staff, routes.staff.mission_control_activate);
 app.get('/staff/mission-control/deactivate', middleware.auth.staff, routes.staff.mission_control_deactivate);
+app.get('/staff/mission-control/toggle', middleware.auth.staff, routes.staff.mission_control_toggle);
 app.get('/staff/mission-control/bar', middleware.auth.staff, routes.staff.bar);
 
 

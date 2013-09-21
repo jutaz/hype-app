@@ -17,6 +17,15 @@ staff.mission_control_deactivate = function(req, res) {
 	res.json({success: true});
 }
 
+staff.mission_control_toggle = function(req, res) {
+	if(req.session.mission_control) {
+		req.session.mission_control = false;
+	} else {
+		req.session.mission_control = true;
+	}
+	res.json({success: true});
+}
+
 staff.bar = function(req, res) {
 	res.render('staff/bar');
 }
