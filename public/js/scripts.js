@@ -55,13 +55,13 @@ function getUser(id) {
 }
 
 keypress.combo("shift q z", function() {
-	open_dev_bar();
+	toggle_dev_bar();
 });
 
-function open_dev_bar() {
+function toggle_dev_bar() {
 	$.ajax({
 		type: "GET",
-		url: '/staff/mission-control/activate'
+		url: '/staff/mission-control/toggle'
 	}).done(function(data) {});
 }
 
