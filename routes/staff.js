@@ -23,11 +23,20 @@ staff.mission_control_toggle = function(req, res) {
 	} else {
 		req.session.mission_control = true;
 	}
-	res.json({success: true});
+	res.json({
+		success: true,
+		bar: req.session.mission_control
+	});
 }
 
 staff.bar = function(req, res) {
-	res.render('staff/bar');
+	perf_model.get_request(req.params.id, function(err, data) {
+		if(err) {
+			throw new Error(err);
+			return;
+		}
+		res.render('staff/bar', {perf: data});
+	});
 }
 
 module.exports = staff;
