@@ -1,4 +1,9 @@
 #mission-control
-	#bar(style='min-height: 40px; height: 40px; width:100%; overflow-y: hidden; padding: 5px; display: table-cell; vertical-align:middle;')
+	#bar.container(style='min-height: 40px; height: 40px; width:100%; overflow-y: hidden; padding: 5px; display: block; vertical-align:middle;')
 		small.req-id.pull-left #{perf._id}
-		small.req-id.pull-left #{perf.time}
+		- if(timelineMetrics) {
+		small #{timelineMetrics.request.percentage}
+		- }
+		.pull-right
+			h4.pull-left.bar-item #{perf.time}ms 
+				small render

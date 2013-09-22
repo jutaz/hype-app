@@ -70,9 +70,15 @@ function toggle_dev_bar() {
 }
 
 function show_dev_bar() {
+	if(window.chrome) {
+		loadTimes = window.performance.timing;
+	} else {
+		loadTimes = {};
+	}
 	$.ajax({
-		type: "GET",
-		url: "/staff/mission-control/bar/"+$("meta[name='request-id']")[0].content
+		type: "post",
+		url: "/staff/mission-control/bar/"+$("meta[name='request-id']")[0].content,
+		data: loadTimes
 	}).done(function(data) {
 		$("div.navbar").prepend(data);
 		var topHeigth = $("div.navbar").outerHeight() - $('.navbar-inner').outerHeight();
@@ -95,9 +101,15 @@ function reload_dev_bar() {
 	if(!$("#mission-control").length) {
 		return;
 	}
+	if(window.chrome) {
+		loadTimes = window.performance.timing;
+	} else {
+		loadTimes = {};
+	}
 	$.ajax({
-		type: "GET",
-		url: "/staff/mission-control/bar/"+$("meta[name='request-id']")[0].content
+		type: "POST",
+		url: "/staff/mission-control/bar/"+$("meta[name='request-id']")[0].content,
+		data: loadTimes
 	}).done(function(data) {
 		$('#mission-control').replaceWith(data);
 	});
