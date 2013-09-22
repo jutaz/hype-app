@@ -165,7 +165,6 @@ function compile_client_js(scripts) {
 			alljs.push(path.normalize(scripts[i]+path.sep+tmp.main));
 		}
 	}
-	alljs.push(path.normalize(__dirname+"/public/js/jquery.appear.js"));
 	alljs.push(path.normalize(__dirname+"/public/js/scripts.js"));
 	var result = UglifyJS.minify(alljs, {
 		outSourceMap: true,
