@@ -9,7 +9,6 @@ $(document).on('pjax:complete', function(pjax, ajax) {
 	reload_dev_bar();
 });
 
-
 $.fn.serializeObject = function() {
 	var o = {};
 	var a = this.serializeArray();
@@ -80,8 +79,8 @@ function show_dev_bar() {
 		url: "/staff/mission-control/bar/"+$("meta[name='request-id']")[0].content,
 		data: loadTimes
 	}).done(function(data) {
-		$("div.navbar").prepend(data);
-		var topHeigth = $("div.navbar").outerHeight() - $('.navbar-inner').outerHeight();
+		$("nav.navbar").prepend(data);
+		var topHeigth = $("nav.navbar").outerHeight() - $('div.navbar-collapse').outerHeight();
 		var currentHeigth = parseInt($('#container').css('padding-top'));
 		$('#container').css('padding-top', currentHeigth+topHeigth+"px");
 	});
@@ -91,7 +90,7 @@ function hide_dev_bar() {
 	if(!$("#mission-control").length) {
 		return;
 	}
-	var topHeigth = $("div.navbar").height()-$('.navbar-inner').outerHeight();
+	var topHeigth = $("nav.navbar").height()-$('div.navbar-collapse').outerHeight();
 	var currentHeigth = parseInt($('#container').css('padding-top'));
 	$('#container').css('padding-top', currentHeigth-topHeigth+"px");
 	$("#mission-control").remove();
