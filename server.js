@@ -1,58 +1,19 @@
 global.conf = require('./conf.json');
 global.conf.development = (conf.environment == "development");
 global.error = require("./lib/errorHandler");
-var logHooker = require('./lib/logHooker');
 var RedisStore = require('socket.io/lib/stores/redis');
 var redis  = require('socket.io/node_modules/redis');
 var pub    = redis.createClient();
 var sub    = redis.createClient();
 var client = redis.createClient();
-var cluster = require('cluster');
-var express = require('express');
-var expressValidator = require('express-validator');
-var mongoStore = require('mong.socket.io');
-var ping = require('./lib/ping');
-var app = express();
 var routes = require('./routes/main');
 var middleware = require("./lib/middleware");
-var https = require('https');
-var fs = require('fs');
 
-if (process.env['ssl'] == "true") {
-	var httpsServer = https.createServer({
-		key: fs.readFileSync(conf.ssl.key, 'utf8'),
-		cert: fs.readFileSync(conf.ssl.cert, 'utf8')
-	}, app);
-	httpsServer.listen(conf.ports.ssl);
-	var io = require('socket.io').listen(httpsServer.listen(conf.ports.ssl), { log: conf.development });
-} else {
-	var io = require('socket.io').listen(app.listen(conf.ports.web), { log: conf.development });
-}
+var system = require('./system/init.js')();
+var app = system.app;
+var io = system.io;
 
-//setting up some custom middleware
-session = middleware.session(express);
-conf.cookie.store = new session();
-
-app.disable('x-powered-by');
-app.use((conf.development) ? middleware.logger : express.logger('dev'));
-app.use(express.static(__dirname + '/public'));
-app.use(middleware.pjax);
-app.use(express.favicon());
-app.use(express.bodyParser());
-app.use(expressValidator());
-app.use(express.methodOverride());
-app.use(express.cookieParser());
-app.use(express.session(conf.cookie));
-app.use(middleware.user);
-app.use(middleware.nav);
-
-app.locals.pretty = conf.development;
-
-app.set('title', 'Presentations');
-app.set('views', __dirname + '/templates');
-app.set('view engine', "jade");
-
-app.engine('jade', require('jade').__express);
+app.set('title', 'Hype');
 
 //Default buit-in routes
 app.get('/', routes.index);
