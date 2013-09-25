@@ -1,13 +1,13 @@
 {
   "name": "hype",
   "version": "0.0.0",
-  "description": "ERROR: No README.md file found!",
+  "description": "Expressjs based cluster-load-balanced app with socket.io, redis, mongoskin.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
-  "author": "",
+  "repository": "git://github.com/jutaz/hype",
+  "author": "Justas Brazauskas <brazauskasjustas@gmail.com>",
   "license": "BSD",
   "dependencies": {
     "jade": "~0.35.0",
