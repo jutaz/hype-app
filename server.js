@@ -2,49 +2,17 @@ global.conf = require('./conf.json');
 global.conf.development = (conf.environment == "development");
 global.error = require("./lib/errorHandler");
 var logHooker = require('./lib/logHooker');
-var RedisStore = require('socket.io/lib/stores/redis');
-var redis  = require('socket.io/node_modules/redis');
-var pub    = redis.createClient();
-var sub    = redis.createClient();
-var client = redis.createClient();
 var routes = require('./routes/main');
 var middleware = require("./lib/middleware");
 
 var system = require('./system/init.js')();
 var app = system.app;
-var io = system.io;
+var io = require('./system/io.js')(system.io);
 
 app.set('title', 'Hype');
 
-//Default buit-in routes
-app.get('/', routes.index);
-app.get('/login', routes.login);
-app.post('/login', routes.login_step2);
-app.get('/logout', routes.logout);
-app.get('/register', routes.register);
-app.post('/register', routes.register_step2);
-app.post('/log/error', routes.log_error);
-
-app.get('/staff', middleware.auth.staff, routes.staff.main);
-app.get('/staff/mission-control/activate', middleware.auth.staff, routes.staff.mission_control_activate);
-app.get('/staff/mission-control/deactivate', middleware.auth.staff, routes.staff.mission_control_deactivate);
-app.get('/staff/mission-control/toggle', middleware.auth.staff, routes.staff.mission_control_toggle);
-app.all('/staff/mission-control/bar/:id', middleware.auth.staff, routes.staff.bar);
+//Define your routes here.
 
 
-//error pages. Those should be last routes. 
-app.all('*', routes.error_404);
-app.use(middleware.serverError);
-
-io.set('store', new RedisStore({
-	redisPub : pub,
-	redisSub : sub,
-	redisClient : client
-}));
-io.configure('production',function() {
-	io.enable('browser client etag');
-	io.enable('browser client minification');
-	io.enable('browser client gzip');
-	console.log("here");
-});
-io.set('authorization', middleware.auth.socket);
+//error pages. Those should be last routes. You may replace these with your own.
+app = require('./system/error_pages')(app);

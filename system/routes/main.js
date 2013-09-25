@@ -1,11 +1,12 @@
 var crypto = require('crypto');
 var util = require('util');
 var os = require("os");
-var users = require('../models/users');
-var states = require("../public/states.json");
-var helper = require("../lib/helper");
+var users = require('../../models/users');
+var states = require("../../public/states.json");
+var helper = require("../../lib/helper");
 
 var routes = {};
+routes.staff = require('./staff');
 
 routes.index = function(req, res) {
 	if(req.user.loggedIn) {
