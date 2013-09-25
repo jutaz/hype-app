@@ -23,7 +23,7 @@ module.exports = function() {
 	session = middleware.session(express);
 	conf.cookie.store = new session();
 	app.disable('x-powered-by');
-	app.use((conf.development) ? middleware.logger : express.logger('dev'));
+	app.use((!conf.development) ? middleware.logger : express.logger('dev'));
 	app.use(express.static(path.normalize(__dirname + '/../public')));
 	app.use(middleware.pjax);
 	app.use(express.favicon());
