@@ -1,6 +1,7 @@
 global.conf = require('./conf.json');
 global.conf.development = (conf.environment == "development");
 global.error = require("./lib/errorHandler");
+var logHooker = require('./lib/logHooker');
 var RedisStore = require('socket.io/lib/stores/redis');
 var redis  = require('socket.io/node_modules/redis');
 var pub    = redis.createClient();
@@ -40,4 +41,10 @@ io.set('store', new RedisStore({
 	redisSub : sub,
 	redisClient : client
 }));
+io.configure('production',function() {
+	io.enable('browser client etag');
+	io.enable('browser client minification');
+	io.enable('browser client gzip');
+	console.log("here");
+});
 io.set('authorization', middleware.auth.socket);
