@@ -79,10 +79,14 @@ function show_dev_bar() {
 		url: "/staff/mission-control/bar/"+$("meta[name='request-id']")[0].content,
 		data: loadTimes
 	}).done(function(data) {
-		$("nav.navbar").prepend(data);
-		var topHeigth = $("nav.navbar").outerHeight() - $('div.navbar-collapse').outerHeight();
-		var currentHeigth = parseInt($('#container').css('padding-top'));
-		$('#container').css('padding-top', currentHeigth+topHeigth+"px");
+		if($("#mission-control").length > 0) {
+			$('#mission-control').replaceWith(data);
+		} else {
+			$("nav.navbar").prepend(data);
+		}
+		var topHeight = $("nav.navbar").outerHeight() - $('div.navbar-collapse').outerHeight();
+		var currentHeight = parseInt($('#container').css('padding-top'));
+		$('#container').css('padding-top', currentHeight+topHeight+"px");
 	});
 }
 
@@ -90,9 +94,9 @@ function hide_dev_bar() {
 	if(!$("#mission-control").length) {
 		return;
 	}
-	var topHeigth = $("nav.navbar").height()-$('div.navbar-collapse').outerHeight();
-	var currentHeigth = parseInt($('#container').css('padding-top'));
-	$('#container').css('padding-top', currentHeigth-topHeigth+"px");
+	var topHeight = $("nav.navbar").height()-$('div.navbar-collapse').outerHeight();
+	var currentHeight = parseInt($('#container').css('padding-top'));
+	$('#container').css('padding-top', currentHeight-topHeight+"px");
 	$("#mission-control").remove();
 }
 
