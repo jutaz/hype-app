@@ -51,7 +51,7 @@ function use_ssl() {
 }
 
 for (var i = 0; i < numberofWorkers; i++) {
-	cluster.fork({"ssl": use_ssl()});
+	cluster.fork({"ssl": use_ssl(), "NODE_ENV": (conf.development) ? "development" : "production"});
 }
 
 for (var i in cluster.workers){
@@ -66,7 +66,7 @@ cluster.on('exit', function(worker, code, signal) {
 	} else {
 		console.log('worker ' + worker.process.pid + ' died');
 		add_to_dead_list(worker);
-		cluster.fork({"ssl": use_ssl()});
+		cluster.fork({"ssl": use_ssl(), "NODE_ENV": (conf.development) ? "development" : "production"});
 	}
 
 });
@@ -111,7 +111,7 @@ function restart_workers(callback) {
 	for(var i in cluster.workers) {
 		cluster.workers[i].disconnect();
 		cluster.workers[i].destroy();
-		new_worker = cluster.fork({"ssl": use_ssl()})
+		new_worker = cluster.fork({"ssl": use_ssl(), "NODE_ENV": (conf.development) ? "development" : "production"})
 		new_worker.process.stdout.on('data', outputData);
 		new_worker.process.stderr.on('data', outputData);
 		new_worker.process.on('error', clusterError);
