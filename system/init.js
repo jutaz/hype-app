@@ -23,6 +23,8 @@ module.exports = function() {
 	session = middleware.session(express);
 	conf.cookie.store = new session();
 	app.disable('x-powered-by');
+	app.use(express.cookieParser());
+	app.use(express.session(conf.cookie));
 	app.use(middleware.logger);
 	app.use(express.static(path.normalize(__dirname + '/../public')));
 	app.use(middleware.pjax);
@@ -30,8 +32,6 @@ module.exports = function() {
 	app.use(express.bodyParser());
 	app.use(expressValidator());
 	app.use(express.methodOverride());
-	app.use(express.cookieParser());
-	app.use(express.session(conf.cookie));
 	app.use(middleware.user);
 	app.use(middleware.nav);
 
