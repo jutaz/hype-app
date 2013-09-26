@@ -1,6 +1,6 @@
 //- -if(!conf.development) {
-script(type="text/javascript", src="/socket.io/socket.io.js?request_id=#{request_id}").
-script(type='text/javascript', src='/js/bundle.js?request_id=#{request_id}').
+script(type="text/javascript", src="/socket.io/socket.io.js").
+script(type='text/javascript', src='/js/bundle.js').
 - if(mission_control && !perf) {
 	script(type='text/javascript').
 		$(document).ready(show_dev_bar);
@@ -14,5 +14,5 @@ script(type='text/javascript', src='/js/bundle.js?request_id=#{request_id}').
 //- script(type='text/javascript', src='/js/scripts.js').
 //- - }
 - if(conf.development) {
-	script(type='text/javascript', src='/js/cssRefresh.js?request_id=#{request_id}').
+	script(type='text/javascript', src='/js/cssRefresh.js').
 - }
