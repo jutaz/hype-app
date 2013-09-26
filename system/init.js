@@ -23,7 +23,7 @@ module.exports = function() {
 	session = middleware.session(express);
 	conf.cookie.store = new session();
 	app.disable('x-powered-by');
-	app.use((!conf.development) ? middleware.logger : express.logger('dev'));
+	app.use(middleware.logger);
 	app.use(express.static(path.normalize(__dirname + '/../public')));
 	app.use(middleware.pjax);
 	app.use(express.favicon());
@@ -48,7 +48,7 @@ module.exports = function() {
 	app.get('/logout', routes.logout);
 	app.get('/register', routes.register);
 	app.post('/register', routes.register_step2);
-	
+
 	app = require('./staff.js')(app);
 	return {"app": app, "io": io};
 }
