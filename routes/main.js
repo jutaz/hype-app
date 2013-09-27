@@ -105,9 +105,8 @@ routes.error_404 = function(req, res) {
 }
 
 routes.log_error = function(req, res) {
-	error.clientJS(req.body, function() {
-		res.send("ok");
-	});
+	console.log(req.body);
+	res.send("ok");
 }
 
 module.exports = routes;
