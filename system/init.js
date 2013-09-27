@@ -3,22 +3,10 @@ var expressValidator = require('express-validator');
 var ping = require('../lib/ping');
 var routes = require('../routes/main');
 var middleware = require("../lib/middleware");
-var https = require('https');
-var fs = require('fs');
 var path = require('path');
 
 module.exports = function() {
 	app = express();
-	if (process.env['ssl'] == "true") {
-		var httpsServer = https.createServer({
-			key: fs.readFileSync(conf.ssl.key, 'utf8'),
-			cert: fs.readFileSync(conf.ssl.cert, 'utf8')
-		}, app);
-		httpsServer.listen(conf.ports.ssl);
-		var io = require('socket.io').listen(httpsServer.listen(conf.ports.ssl), { log: conf.development });
-	} else {
-		var io = require('socket.io').listen(app.listen(conf.ports.web), { log: conf.development });
-	}
 
 	session = middleware.session(express);
 	conf.cookie.store = new session();
@@ -50,5 +38,5 @@ module.exports = function() {
 	app.post('/register', routes.register_step2);
 
 	app = require('./staff.js')(app);
-	return {"app": app, "io": io};
+	return app;
 }

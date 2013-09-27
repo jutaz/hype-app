@@ -5,9 +5,12 @@ var logHooker = require('./lib/logHooker');
 var routes = require('./routes/main');
 var middleware = require("./lib/middleware");
 
-var system = require('./system/init.js')();
-var app = system.app;
-var io = require('./system/io.js')(system.io);
+var test = require('./system/main');
+app = test.init();
+test.listen(app);
+// var system = require('./system/init.js')();
+// var app = system.app;
+// var io = require('./system/io.js')(system.io);
 
 app.set('title', 'Hype');
 
