@@ -1,8 +1,7 @@
 var express = require('express');
 var expressValidator = require('express-validator');
-var ping = require('../lib/ping');
-var routes = require('../routes/main');
-var middleware = require("../lib/middleware");
+var routes = require('./routes/main');
+var middleware = require("./lib/middleware");
 var path = require('path');
 
 module.exports = function() {

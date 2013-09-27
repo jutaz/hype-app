@@ -1,4 +1,4 @@
-var middleware = require("../lib/middleware");
+var middleware = require("./lib/middleware");
 var routes = require('./routes/main');
 
 module.exports = function(app) {

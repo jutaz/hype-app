@@ -3,7 +3,7 @@ var redis  = require('socket.io/node_modules/redis');
 var pub    = redis.createClient();
 var sub    = redis.createClient();
 var client = redis.createClient();
-var middleware = require("../lib/middleware");
+var middleware = require("./lib/middleware");
 
 module.exports = function(io) {
 	io.set('store', new RedisStore({

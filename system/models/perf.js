@@ -1,4 +1,4 @@
-var db = require('../../lib/db').general;
+var db = require('../lib/db').general;
 var perf = {};
 
 perf.get_request = function(id, callback) {

@@ -1,5 +1,5 @@
 var crypto = require('crypto');
-var states = require("../public/states.json");
+var states = require("../lib/states.json");
 var db = require('../lib/db');
 var inMemory = require('../lib/inMemory');
 var users = {};
