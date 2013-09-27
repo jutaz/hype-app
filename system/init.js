@@ -29,7 +29,6 @@ module.exports = function() {
 
 	app.engine('jade', require('jade').__express);
 
-	app.get('/', routes.index);
 	app.get('/login', routes.login);
 	app.post('/login', routes.login_step2);
 	app.get('/logout', routes.logout);

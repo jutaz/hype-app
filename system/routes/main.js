@@ -8,18 +8,6 @@ var helper = require("../lib/helper");
 var routes = {};
 routes.staff = require('./staff');
 
-routes.index = function(req, res) {
-	if(req.user.loggedIn) {
-		res.render("online", {
-			user: req.user,
-		});
-	} else {
-		res.render("index", {
-			user: req.user,
-		});
-	}
-}
-
 routes.register = function(req, res) {
 	res.render('register');
 }
@@ -56,6 +44,7 @@ routes.register_step2 = function(req, res) {
 				users.register(data, function(err, success, userId) {
 					req.session.loggedIn = true;
 					req.session.userID = userId;
+					res.force_layout_reload();
 					if(req.query.redirectTo) {
 						res.redirect(req.query.redirectTo);
 					} else {
@@ -80,6 +69,7 @@ routes.login_step2 = function(req, res) {
 		} else {
 			req.session.loggedIn = true;
 			req.session.userID = userId;
+			res.force_layout_reload();
 			if(req.query.redirectTo) {
 				res.redirect(req.query.redirectTo);
 			} else {
@@ -93,6 +83,7 @@ routes.logout = function(req, res) {
 	req.session.loggedIn = false;
 	delete req.session.userID;
 	delete req.user;
+	res.force_layout_reload();
 	res.redirect("/");
 }
 
