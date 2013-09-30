@@ -1,4 +1,5 @@
-global.conf = require('../conf.json');
+var settings = require('settings');
+global.conf = new settings(require('../conf.json'));
 global.conf.development = (conf.environment == "development");
 global.error = require("./lib/errorHandler");
 global.db = require("./lib/db");
