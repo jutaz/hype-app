@@ -1,22 +1,44 @@
 {
-	"db": {
-		"host": "127.0.0.1",
-		"port": 27017,
-		"username": "",
-		"password": "",
-		"database":  {
-				"general": ""
+	"common": {
+		"db": {
+			"host": "127.0.0.1",
+			"port": 27017,
+			"username": "",
+			"password": "",
+			"database":  {
+				"general": "beer"
 			}
+		},
+		"cookie": {
+			"secret": "sadasdsaddsa",
+			"key": "session"
+		},
+		"ports": {
+			"web": 3000,
+			"ssl": 3001
+		},
+		"environment": "",
+		"launch_options": {
+			"workers": 0
+		},
+		"ssl": {
+			"key": "./jutaz.key", 
+			"cert": "./jutaz.crt"
+		}
 	},
-	"cookie": {
-		"secret": "",
-		"key": "session"
+	"development": {
+		"environment": "development",
+		"launch_options": {
+			"workers": 2
+		}
 	},
-	"ports": {
-		"web": 3000
+	"test": {
+		"environment": "test"
 	},
-	"environment": "development",
-	"launch_options": {
-		"workers": 2
+	"production":  {
+		"environment": "production",
+		"launch_options": {
+			"workers": 0
+		}
 	}
 }
