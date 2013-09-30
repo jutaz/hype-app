@@ -4,7 +4,7 @@ var routes = require('./routes/main');
 var middleware = require("./lib/middleware");
 var path = require('path');
 
-module.exports = function() {
+module.exports = function(options) {
 	app = express();
 
 	session = middleware.session(express);
