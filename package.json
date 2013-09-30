@@ -24,6 +24,7 @@
     "node-minify": "~0.8.1",
     "uglify-js": "~2.4.0",
     "optimist": "~0.6.0",
-    "cli-color": "~0.2.3"
+    "cli-color": "~0.2.3",
+    "settings": "~0.1.1"
   }
 }
