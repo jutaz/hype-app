@@ -9,6 +9,8 @@ app = system.init({
 	logger: true,
 	validator: true,
 	pjax: true,
+	user: true,
+	nav: true,
 	template_dir: __dirname+"/templates",
 	public_dir: __dirname+"/public",
 	view_engine: "jade",
