@@ -6,21 +6,37 @@ var path = require('path');
 
 module.exports = function(options) {
 	app = express();
-
-	session = middleware.session(express);
-	conf.cookie.store = new session();
-	app.disable('x-powered-by');
-	app.use(express.cookieParser());
-	app.use(express.session(conf.cookie));
-	app.use(middleware.logger);
-	app.use(express.static(path.normalize(__dirname + '/../public')));
-	app.use(middleware.pjax);
-	app.use(express.favicon());
-	app.use(express.bodyParser());
-	app.use(expressValidator());
-	app.use(express.methodOverride());
-	app.use(middleware.user);
-	app.use(middleware.nav);
+	if (options.sessions) {
+		session = middleware.session(express);
+		conf.cookie.store = new session();
+		app.use(express.cookieParser());
+		app.use(express.session(conf.cookie));
+	}
+	if(options.logger) {
+		app.use(middleware.logger);
+	} else {
+		console.warn("If you want to collect perfomance data and send it to hype-dashboard, you must enable logger middleware.");
+	}
+	if(options.public_dir) {
+		app.use(express.static(path.normalize(options.public_dir)));
+	}
+	if(options.pjax) {
+		app.use(middleware.pjax);
+	}
+	if(options.middleware) {
+		app.use(express.favicon());
+		app.use(express.bodyParser());
+		app.use(express.methodOverride());
+	}
+	if(options.validator) {
+		app.use(expressValidator());
+	}
+	if(options.user) {
+		app.use(middleware.user);
+	}
+	if(options.nav) {
+		app.use(middleware.nav);
+	}
 
 	app.locals.pretty = conf.development;
 
