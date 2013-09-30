@@ -12,8 +12,8 @@ var path = require('path');
 
 var main = {};
 
-main.init = function() {
-	return system();
+main.init = function(options) {
+	return system(options);
 }
 
 main.listen = function(app) {
