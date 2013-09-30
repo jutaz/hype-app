@@ -40,7 +40,7 @@ module.exports = function(options) {
 
 	app.locals.pretty = conf.development;
 
-	app.set('views', path.normalize(__dirname + '/../templates'));
+	app.set('views', path.normalize(options.template_dir));
 	app.set('view engine', "jade");
 
 	app.engine('jade', require('jade').__express);
