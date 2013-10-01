@@ -23,4 +23,8 @@ app.get('/', routes.index);
 
 //error pages. Those should be last routes. You may replace these with your own.
 app = require('./system/error_pages')(app);
-system.listen(app);
+system.listen(app, {
+	io: true,
+	https: true,
+	http: true,
+});
