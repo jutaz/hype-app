@@ -27,4 +27,8 @@ system.listen(app, {
 	io: true,
 	https: true,
 	http: true,
+	ssl: {
+		cert: __dirname+'/'+conf.ssl.cert,
+		key: __dirname+'/'+conf.ssl.key
+	}
 });

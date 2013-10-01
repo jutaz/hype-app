@@ -23,10 +23,10 @@ main.listen = function(app, options) {
 		http: true,
 		io: true
 	};
-	if (process.env['ssl'] == "true" && options.ssl) {
+	if (process.env['ssl'] == "true" && options.https && options.ssl) {
 		var httpsServer = https.createServer({
-			key: fs.readFileSync(path.normalize(__dirname+'/../'+conf.ssl.key), 'utf8'),
-			cert: fs.readFileSync(path.normalize(__dirname+'/../'+conf.ssl.cert), 'utf8')
+			key: fs.readFileSync(path.normalize(options.ssl.key), 'utf8'),
+			cert: fs.readFileSync(path.normalize(options.ssl.cert), 'utf8')
 		}, app);
 		httpsServer.listen(conf.ports.ssl);
 		srv = httpsServer.listen(conf.ports.ssl);
