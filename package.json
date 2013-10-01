@@ -1,7 +1,7 @@
 {
   "name": "hype-app",
   "version": "0.0.0",
-  "description": "Expressjs based cluster-load-balanced app with socket.io, redis, mongoskin.",
+  "description": "Hype sample app.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
