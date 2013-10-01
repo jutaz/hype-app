@@ -23,7 +23,7 @@ module.exports = function(options) {
 	if(options.pjax) {
 		app.use(middleware.pjax);
 	}
-	if(options.middleware) {
+	if(options.native_middleware) {
 		app.use(express.favicon());
 		app.use(express.bodyParser());
 		app.use(express.methodOverride());

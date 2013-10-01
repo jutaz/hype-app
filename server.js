@@ -3,7 +3,7 @@ var routes = require('./routes/main');
 
 app = system.init({
 	default_routes: true,
-	middleware: true,
+	native_middleware: true,
 	sessions: true,
 	staff_mode: true,
 	logger: true,
