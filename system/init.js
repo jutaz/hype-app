@@ -43,17 +43,27 @@ module.exports = function(options) {
 
 	app.locals.pretty = conf.development;
 
-	app.set('views', path.normalize(options.template_dir));
-	app.set('view engine', "jade");
+	if(options.template_dir) {
+		app.set('views', path.normalize(options.template_dir));
+		app.set('view engine', options.view_engine);
+		if(options.view_engine == "jade") {
+			app.engine('jade', require('jade').__express);
+		} else {
+			console.warn("You must specify app.engine by yourself.");
+		}
+	}
 
-	app.engine('jade', require('jade').__express);
+	if(options.default_routes) {
+		app.get('/login', routes.login);
+		app.post('/login', routes.login_step2);
+		app.get('/logout', routes.logout);
+		app.get('/register', routes.register);
+		app.post('/register', routes.register_step2);
+	}
 
-	app.get('/login', routes.login);
-	app.post('/login', routes.login_step2);
-	app.get('/logout', routes.logout);
-	app.get('/register', routes.register);
-	app.post('/register', routes.register_step2);
-
-	app = require('./staff.js')(app);
+	if(options.staff_mode) {
+		app = require('./staff.js')(app);
+	}
+	
 	return app;
 }
