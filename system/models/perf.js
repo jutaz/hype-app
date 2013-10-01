@@ -20,6 +20,4 @@ perf.get_request = function(id, callback) {
 	});
 }
 
-
-
 module.exports = perf;
