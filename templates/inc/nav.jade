@@ -11,13 +11,13 @@ nav.navbar.navbar-default.navbar-inverse.navbar-fixed-top(role='navigation')
       .collapse.navbar-collapse
         ul.navbar-nav.nav
           - each val, key in paths
-                  -if (key == "chat")
+                  -if (key == "logout")
                     -if (current_page == key)
-                      li.dropdown.active
-                        a(href='/#{key}', id="chat_trigger") #{val}
+                      li.active
+                        a.logout(href='/#{key}') #{val}
                     -else
-                      li.dropdown
-                        a(href='/#{key}', id="chat_trigger") #{val}
+                      li
+                        a.logout(href='/#{key}') #{val}
                     -continue
                   - if (current_page == key)
                     li.active
