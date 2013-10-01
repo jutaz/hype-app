@@ -1,19 +1,23 @@
 var settings = require('settings');
-global.conf = new settings(require('../conf.json'));
-global.conf.development = (conf.environment == "development");
-global.error = require("./lib/errorHandler");
-global.db = require("./lib/db");
-var logHooker = require('./lib/logHooker');
-var system = require('./init.js');
 var https = require('https');
 var fs = require('fs');
-var io_conf = require('./io.js');
 var path = require('path');
 
 var main = {};
 
 main.init = function(options) {
-	if(!options) options = {};
+	if(!options) {
+		throw new Error("Options must be specified!");
+	}
+	if(!options.conf) {
+		throw new Error("Options.conf must be specified!");
+	}
+	global.conf = new settings(require(path.normalize(options.conf)));
+	global.conf.development = (conf.environment == "development");
+	global.db = require("./lib/db");
+	global.error = require("./lib/errorHandler");
+	var logHooker = require('./lib/logHooker');
+	var system = require('./init.js');
 	return system(options);
 }
 
@@ -46,6 +50,7 @@ main.listen = function(app, options) {
 		}
 	}
 	if(options.io) {
+		var io_conf = require('./io.js');
 		var io = io_conf(io);
 	}
 	return {"io": io, "app": app}

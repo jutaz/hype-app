@@ -14,6 +14,7 @@ app = system.init({
 	template_dir: __dirname+"/templates",
 	public_dir: __dirname+"/public",
 	view_engine: "jade",
+	conf: __dirname+"/conf.json"
 });
 
 app.set('title', 'Hype');
