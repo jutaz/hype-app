@@ -26,7 +26,7 @@ $.fn.serializeObject = function() {
 };
 
 $(document).ready(function() {
-	$(document).on('click', 'a', function (event) {
+	$(document).on('click', 'a:not(.logout)', function (event) {
 		event.preventDefault();
 		$(this).parent().addClass('active').siblings().removeClass('active');
 		return $.pjax.click(event, '#container');
