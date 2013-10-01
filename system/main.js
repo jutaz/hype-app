@@ -13,6 +13,7 @@ var path = require('path');
 var main = {};
 
 main.init = function(options) {
+	if(!options) options = {};
 	return system(options);
 }
 
