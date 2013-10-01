@@ -6,6 +6,9 @@ var path = require('path');
 
 module.exports = function(options) {
 	app = express();
+	if(options.length < 1) {
+		return app;
+	}
 	if (options.sessions) {
 		session = middleware.session(express);
 		conf.cookie.store = new session();

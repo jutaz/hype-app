@@ -18,6 +18,9 @@ main.init = function(options) {
 	global.error = require("./lib/errorHandler");
 	var logHooker = require('./lib/logHooker');
 	var system = require('./init.js');
+	if(options.length == 1 && options.conf) {
+		return system({});
+	}
 	return system(options);
 }
 
