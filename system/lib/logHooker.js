@@ -2,7 +2,7 @@ var util = require('util');
 var db = require('./db').general;
 var cluster = require('cluster');
 var error_handler = require('./errorHandler');
-if(cluster.is_master) {
+if(cluster.isMaster) {
 	cluster.worker = {
 		id: ""
 	};
