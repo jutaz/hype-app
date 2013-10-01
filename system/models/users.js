@@ -1,7 +1,6 @@
 var crypto = require('crypto');
 var states = require("../lib/states.json");
 var db = require('../lib/db');
-var inMemory = require('../lib/inMemory');
 var users = {};
 
 users.exists = function(fields, callback) { //callback params: error, exists.
