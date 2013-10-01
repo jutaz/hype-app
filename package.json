@@ -1,5 +1,5 @@
 {
-  "name": "hype",
+  "name": "hype-app",
   "version": "0.0.0",
   "description": "Expressjs based cluster-load-balanced app with socket.io, redis, mongoskin.",
   "main": "main.js",
